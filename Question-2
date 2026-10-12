@@ -1,0 +1,172 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# =====================================================
+# 1. CREATE A DATASET
+# =====================================================
+# Three features measured across five samples
+data = np.array([
+    [2, 4, 5],
+    [3, 6, 4],
+    [4, 8, 7],
+    [5, 10, 6],
+    [6, 12, 9]
+])
+
+print("=" * 60)
+print("1. DATASET ANALYSIS")
+print("=" * 60)
+print("Dataset:\n", data)
+print("Shape:", data.shape)
+print("Mean of each feature:", np.mean(data, axis=0))
+
+# =====================================================
+# 2. COVARIANCE MATRIX
+# =====================================================
+# Rows represent features; columns represent samples
+cov_matrix = np.cov(data, rowvar=False)
+
+print("\n" + "=" * 60)
+print("2. COVARIANCE MATRIX")
+print("=" * 60)
+print(cov_matrix)
+
+print("\nInterpretation:")
+print("Positive covariance: features tend to increase together.")
+print("Negative covariance: one tends to increase as the other decreases.")
+print("Near-zero covariance: little linear co-variation.")
+
+# Visualize covariance matrix
+plt.figure(figsize=(6, 5))
+plt.imshow(cov_matrix, cmap="coolwarm")
+plt.colorbar(label="Covariance")
+plt.xticks(range(3), ["Feature 1", "Feature 2", "Feature 3"])
+plt.yticks(range(3), ["Feature 1", "Feature 2", "Feature 3"])
+
+for i in range(3):
+    for j in range(3):
+        plt.text(j, i, f"{cov_matrix[i, j]:.2f}",
+                 ha="center", va="center", color="black")
+
+plt.title("Covariance Matrix Heatmap")
+plt.tight_layout()
+plt.show()
+
+# =====================================================
+# 3. EIGENVALUES AND EIGENVECTORS
+# =====================================================
+# Covariance matrix is symmetric, so use eigh()
+eigenvalues, eigenvectors = np.linalg.eigh(cov_matrix)
+
+# Sort from largest to smallest eigenvalue
+indices = np.argsort(eigenvalues)[::-1]
+eigenvalues = eigenvalues[indices]
+eigenvectors = eigenvectors[:, indices]
+
+print("\n" + "=" * 60)
+print("3. EIGENVALUES")
+print("=" * 60)
+print(eigenvalues)
+
+print("\n" + "=" * 60)
+print("4. EIGENVECTORS (columns)")
+print("=" * 60)
+print(eigenvectors)
+
+# =====================================================
+# 4. EXPLAIN VARIANCE CONTRIBUTION
+# =====================================================
+explained_variance_ratio = eigenvalues / np.sum(eigenvalues)
+
+print("\n" + "=" * 60)
+print("5. EXPLAINED VARIANCE RATIO")
+print("=" * 60)
+
+for i, ratio in enumerate(explained_variance_ratio):
+    print(f"Principal Component {i+1}: {ratio:.4f} ({ratio*100:.2f}%)")
+
+print("Cumulative explained variance:",
+      np.cumsum(explained_variance_ratio))
+
+# Plot eigenvalues
+plt.figure(figsize=(7, 4))
+plt.bar(
+    ["PC1", "PC2", "PC3"],
+    eigenvalues
+)
+plt.xlabel("Principal Components")
+plt.ylabel("Eigenvalue")
+plt.title("Eigenvalues of Covariance Matrix")
+plt.grid(axis="y", alpha=0.3)
+plt.tight_layout()
+plt.show()
+
+# =====================================================
+# 5. EIGENVECTORS VISUALIZATION
+# =====================================================
+# Use two features for a 2D illustration
+data_2d = data[:, :2]
+centered_data = data_2d - np.mean(data_2d, axis=0)
+cov_2d = np.cov(data_2d, rowvar=False)
+
+values_2d, vectors_2d = np.linalg.eigh(cov_2d)
+indices_2d = np.argsort(values_2d)[::-1]
+values_2d = values_2d[indices_2d]
+vectors_2d = vectors_2d[:, indices_2d]
+
+plt.figure(figsize=(7, 6))
+plt.scatter(centered_data[:, 0], centered_data[:, 1],
+            label="Centered samples")
+
+colors = ["red", "green"]
+for i in range(2):
+    direction = vectors_2d[:, i] * np.sqrt(values_2d[i])
+    plt.quiver(
+        0, 0,
+        direction[0], direction[1],
+        angles="xy", scale_units="xy", scale=1,
+        color=colors[i],
+        label=f"Eigenvector {i+1}"
+    )
+
+plt.axhline(0, color="gray", linewidth=0.7)
+plt.axvline(0, color="gray", linewidth=0.7)
+plt.xlabel("Feature 1 (centered)")
+plt.ylabel("Feature 2 (centered)")
+plt.title("Eigenvectors and Data Variation")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.axis("equal")
+plt.tight_layout()
+plt.show()
+
+# =====================================================
+# 6. PCA: PROJECT DATA ONTO PRINCIPAL COMPONENTS
+# =====================================================
+# Center the original dataset before projection
+centered_data = data - np.mean(data, axis=0)
+
+# Project onto the first two principal directions
+pca_2d = centered_data @ eigenvectors[:, :2]
+
+print("\n" + "=" * 60)
+print("6. PCA PROJECTION ONTO FIRST TWO COMPONENTS")
+print("=" * 60)
+print(pca_2d)
+
+plt.figure(figsize=(7, 5))
+plt.scatter(pca_2d[:, 0], pca_2d[:, 1], s=70)
+
+for i, (x, y) in enumerate(pca_2d):
+    plt.annotate(f"Sample {i+1}", (x, y),
+                 xytext=(5, 5), textcoords="offset points")
+
+plt.xlabel("Principal Component 1")
+plt.ylabel("Principal Component 2")
+plt.title("Dataset Projected into PCA Space")
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+
+print("\nAnalysis completed successfully!")
