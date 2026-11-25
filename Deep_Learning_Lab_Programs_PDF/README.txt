@@ -1,0 +1,41 @@
+Deep Learning Lab - Programs (Experiments 1-30)
+====================================================
+
+Each Word file contains: Aim, Algorithm, Code, Input and Output, Result.
+Experiment 4 contains all four of its questions in one file.
+
+Exp01_Vector_and_Matrix_Operations_for_Deep_Learning.docx
+Exp02_Student_Marks_Analysis_Using_Vector_Operations.docx
+Exp03_Probability_Distributions_and_Bayes_Theorem_in_Medical_Diagn.docx
+Exp04_Entropy_Cross_Entropy_and_KL_Divergence.docx
+Exp05_Bias_Variance_Overfitting_and_Underfitting_Analysis.docx
+Exp06_Gradient_Descent_SGD_Momentum_and_Adam_Comparison.docx
+Exp07_Perceptron_and_Forward_Propagation_for_Email_Spam_Classifica.docx
+Exp08_Two_Layer_Neural_Network_with_Backpropagation.docx
+Exp09_Multilayer_Perceptron_for_Handwritten_Digit_Recognition_MNIS.docx
+Exp10_L2_Regularisation_Dropout_and_Early_Stopping_Comparison.docx
+Exp11_CNN_for_Plant_Leaf_Disease_Classification.docx
+Exp12_CNN_Architecture_and_Hyperparameter_Comparison_Traffic_Sign_.docx
+Exp13_Sequential_Dataset_Preparation_and_RNN_Temperature_Predictio.docx
+Exp14_Unfolded_RNN_Architecture_Visualisation.docx
+Exp15_Backpropagation_Through_Time_BPTT_and_Gradient_Flow_Analysis.docx
+Exp16_LSTM_and_RNN_Performance_Comparison_for_Stock_Price_Predicti.docx
+Exp17_RNN_Gradient_Analysis_and_Gradient_Clipping.docx
+Exp18_RNN_LSTM_and_GRU_Hyperparameter_Experimentation_with_Keras_T.docx
+Exp19_PCA_and_Explained_Variance_Analysis.docx
+Exp20_Probabilistic_PCA_and_Reconstruction_Analysis_for_Face_Image.docx
+Exp21_Factor_Analysis_and_Latent_Factor_Interpretation.docx
+Exp22_Independent_Component_Analysis_for_Audio_Signal_Separation.docx
+Exp23_Bayesian_Network_Construction_and_Visualisation.docx
+Exp24_Graphical_Model_Sampling_and_Probabilistic_Inference_for_Med.docx
+Exp25_Restricted_Boltzmann_Machine_Energy_and_Reconstruction.docx
+Exp26_Gibbs_Sampling_and_Contrastive_Divergence_Analysis.docx
+Exp27_Deep_Belief_Network_Representation_Learning.docx
+Exp28_Simplified_Deep_Boltzmann_Machine_Simulation_for_Image_Patte.docx
+Exp29_VAE_and_GAN_Sample_Generation_on_MNIST.docx
+Exp30_Additional_Evaluation_Generative_Model_Output_Comparison.docx
+
+Tools: Python 3, NumPy, SciPy, Scikit-learn, Matplotlib, Pandas, NetworkX,
+TensorFlow/Keras (Exp 9-12, 13, 15-18, 20 stand-ins, 29-30), KerasTuner (Exp 18),
+pgmpy (Exp 23-24). Install with: pip install numpy scipy scikit-learn matplotlib
+pandas networkx tensorflow keras-tuner pgmpy python-docx
